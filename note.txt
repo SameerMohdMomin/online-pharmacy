@@ -1,0 +1,56 @@
+If the file does not exist you might get an error like this:
+
+Warning: fopen(mytestfile.txt) [function.fopen]: failed to open stream:
+No such file or directory in C:\webfolder\test.php on line 2
+To prevent the user from getting an error message like the one above, we test whether the file exist before we try to access it:
+
+
+
+
+
+
+
+
+
+   <form class="form-signin" action="userdata.php" onsubmit="return validation()" method="post">
+
+               <div class="form-group">
+                <input type="text" id="ip4" class="form-control" name="name"  id="user" placeholder="Name">
+               <span id="username" class="text-danger font-weight-bold"> </span>
+                
+              </div>
+
+                <div class="form-group">
+                <input type="text" class="form-control" name="phone" id="mobileNumber" max="10" placeholder="Phone Number"  autocomplete="off">
+                <span id="mobileno" class="text-danger font-weight-bold"> </span>
+               
+              </div>
+
+              <div class="form-group">
+                <input type="email" class="form-control" name="email" id="emails" placeholder="Email address">
+                <span id="emailids" class="text-danger font-weight-bold"> </span>
+                
+              </div>
+
+              <div class="form-group">
+                <input type="password" id="password" class="form-control" name="password" id="pass" placeholder="Password">
+               <span id="passwords" class="text-danger font-weight-bold"> </span>
+              </div>
+
+               <div class="form-group">
+                <input type="password" id="confirm_password" class="form-control" name="confirm_password" id="conpass"  placeholder="Confirm Password">
+               <span id="confrmpass" class="text-danger font-weight-bold"> </span>
+                
+               
+              </div>
+             
+              <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #51A3A3;" type="submit">Create</button>
+              <hr class="my-4">
+
+              <div class="row-fluid" style="margin-left: 80px;">Already Have Account
+              <a href="login.html">Sign In</a>
+              
+
+              </div>
+
+            </form>

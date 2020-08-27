@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+         <title>Pharma | Orders</title>
+
+         <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="style4.css">
+         
+
+    </head>
+    <body>
+
+
+
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header" id="sidebarCollapse">
+                    <h3>Admin Dashboard</h3>
+                    <strong>AD</strong>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="dash.html" aria-expanded="false">
+                            <i class="glyphicon glyphicon-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="products.php">
+                            <i class="glyphicon glyphicon-briefcase"></i>
+                            Add products
+                        </a>
+                    </li>
+                    <li>
+                        <a href="customers.php">
+                            <i class="glyphicon glyphicon-duplicate"></i>
+                            Customers
+                        </a>
+                       
+                    </li>
+                    <li class="active">
+                        <a href="orders.php">
+                            <i class="glyphicon glyphicon-send"></i>
+                            Orders
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="contact.php">
+                            <i class="glyphicon glyphicon-send"></i>
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                    <a href="category.php">
+                        <i class="fas fa-paper-plane"></i>
+                        Add Category
+                    </a>
+                </li>
+                 <li>
+                    <a href="blogs.php">
+                        <i class="fas fa-paper-plane"></i>
+                        Add Blogs
+                    </a>
+                </li>
+                 <li>
+                    <a href="brand.php">
+                        <i class="fas fa-paper-plane"></i>
+                        Add Brands
+                    </a>
+                </li>
+                </ul>
+
+                
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#online" id="online_shopping" role="button">Online Shopping</a></li>
+                                <li><a href="#status" id="status_op" role="button">Status</a></li>
+                                <li><a href="#">Page</a></li>
+                                <li><a href="#">Page</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+
+
+           <div class="container-fluid" id="online" style="display: none;">
+            <table>
+                <thead>
+                            
+                            <td>Customer Name</td>
+                            <td>Product Name</td>
+                            <td>Quantity</td>
+                            <td>Total Price</td>
+                            <td>Order id</td>
+                 
+
+                </thead>
+
+                        
+
+                <tbody>
+
+
+                    <?php 
+                              include '../connection.php';
+                                if ($conn->connect_error) 
+                                {
+                                  die("Connection failed: " . $conn->connect_error);
+                                }
+                                else{
+            
+                                $sql="select * from cart where status='purches'";
+                                $result = $conn->query($sql);
+                                if($result->num_rows > 0){
+                                     while($row = $result->fetch_assoc()) 
+                                    {
+                                        $cus_id=$row['user_id'];
+                                        $product_id=$row['Product_id'];
+                                        $order_id=$row['order_id'];
+                                    ?>
+
+                                    <tr>  
+                                          
+                                        
+
+                                        <td>
+                                                <?php 
+                                                            $sql1="select * from user where user_id=$cus_id";
+                                                            $result1 = $conn->query($sql1);
+                                                            if($result1->num_rows ==1 ){
+                                                            $row1 = $result1->fetch_assoc();
+                                                            echo $row1['name'];
+                                                        }
+                                                        else{
+                                                            echo "error";
+                                                        }
+
+
+                                                ?>
+
+
+                                        </td>
+
+                                          <td>
+                                                 <?php
+                                                        $sql3="select * from product where Product_id=$product_id";
+                                                        $result3 = $conn->query($sql3);
+                                                        if($result3->num_rows == 1 ){
+                                                        $row3 = $result3->fetch_assoc();
+                                                      
+                                                    }
+                                                    else{
+                                                        echo "error";
+                                                    }
+
+                                                 ?>
+                                        </td>
+
+
+                                        <td>
+                                                 <?php
+                                                        $sql2="select * from product where Product_id=$product_id";
+                                                        $result2 = $conn->query($sql2);
+                                                        if($result2->num_rows == 1 ){
+                                                        $row2 = $result2->fetch_assoc();
+                                                        echo $row2['name'];
+                                                    }
+                                                    else{
+                                                        echo "error";
+                                                    }
+
+                                                 ?>
+                                        </td>
+                                        <td><?php echo $row['quantity']; ?></td>
+                                        <td><?php echo $row['tprice']; ?></td>
+                                        <td><?php echo $order_id; ?></td>
+                                      
+                                    </tr>
+               <?php
+
+
+
+
+                                    }
+                                }
+                                else{
+                                    echo "error";
+                                }
+                            }
+                            ?>
+                                    
+
+                
+                  
+                                  
+                      
+                </tbody>
+                        
+                
+                    </table>
+                    
+            
+        </div>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <div class="container-fluid" id="status" style="display: none;">
+            <table>
+                <thead>
+                            
+                            <td>Customer Name</td>
+                            <td>Product Name</td>
+                            <td>Status</td>
+                          
+                 
+
+                </thead>
+
+                        
+
+                <tbody>
+
+
+                    <?php 
+                              include '../connection.php';
+                                if ($conn->connect_error) 
+                                {
+                                  die("Connection failed: " . $conn->connect_error);
+                                }
+                                else{
+            
+                                $sql="select * from cart where status='purches'";
+                                $result = $conn->query($sql);
+                                if($result->num_rows > 0){
+                                     while($row = $result->fetch_assoc()) 
+                                    {
+                                        $cus_id=$row['user_id'];
+                                        $product_id=$row['Product_id'];
+                                    ?>
+
+                                    <tr>
+                                        <td>
+                                                <?php 
+                                                            $sql1="select * from user where user_id=$cus_id";
+                                                            $result1 = $conn->query($sql1);
+                                                            if($result1->num_rows ==1 ){
+                                                            $row1 = $result1->fetch_assoc();
+                                                            echo $row1['name'];
+                                                        }
+                                                        else{
+                                                            echo "error";
+                                                        }
+
+
+                                                ?>
+
+
+                                        </td>
+
+                                        <td>
+                                                 <?php
+                                                        $sql2="select * from product where Product_id=$product_id";
+                                                        $result2 = $conn->query($sql2);
+                                                        if($result2->num_rows == 1 ){
+                                                        $row2 = $result2->fetch_assoc();
+                                                        echo $row2['name'];
+                                                    }
+                                                    else{
+                                                        echo "error";
+                                                    }
+
+                                                 ?>
+                                        </td>
+
+                                       
+                                        <td>
+                                            <form action="status.php" method="post">
+                                                <select name="status">
+                                                    <option value="packed">packed</option>
+                                                    <option value="dispatched">dispatched</option>
+                                                    <option value="out of order">out of order</option>
+                                                    <option value="Delivery">Delivery</option>
+                                                    
+
+                                                </select>
+                                                <input type="submit" name="submit">
+                                            </form>
+
+                                            </td>
+                                        
+                                      
+                                    </tr>
+               <?php
+
+
+
+
+                                    }
+                                }
+                                else{
+                                    echo "error";
+                                }
+                            }
+                            ?>
+                                    
+
+                
+                  
+                                  
+                      
+                </tbody>
+                        
+                
+                    </table>
+                    
+            
+        </div>
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+</div>
+
+
+
+<!-- Button trigger modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- jQuery CDN -->
+         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+         <!-- Bootstrap Js CDN -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+   <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>      
+    </body>
+</html>
+
+
+
+<script>
+  $(document).ready(function(){
+  $("#online_shopping").click(function(){
+    $("#online").css({"display":"block"});
+    $("#status").css({"display":"none"});
+  });
+});
+
+$(document).ready(function(){
+  $("#status_op").click(function(){
+    $("#status").css({"display":"block"});
+    $("#online").css({"display":"none"});
+  });
+});
+</script>
+
